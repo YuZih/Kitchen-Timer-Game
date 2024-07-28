@@ -1,0 +1,26 @@
+{
+  "devDependencies": {
+    "stylelint": "^16.8.1",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-order": "^6.0.4"
+  },
+  "name": "exercise",
+  "version": "1.0.0",
+  "main": ".stylelintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:css": "stylelint '**/*.scss' --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YuZih/Timer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YuZih/Timer/issues"
+  },
+  "homepage": "https://github.com/YuZih/Timer#readme",
+  "description": ""
+}

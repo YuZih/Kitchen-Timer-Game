@@ -1,0 +1,6 @@
+# macOS
+.DS_Store
+
+# Node dependencies / Dependency directories
+node_modules
+jspm_packages/

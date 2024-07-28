@@ -1,0 +1,242 @@
+$primary1: rgb(246, 186, 208);
+$primary2: rgb(219, 98, 98);
+$secondary1: rgb(255, 149, 0);
+$secondary2: rgb(121, 72, 3);
+$secondary3: rgb(255, 166, 43);
+$gray1: rgb(174, 174, 174);
+$gray2: rgba(74, 74, 74, 0.8);
+$transparent1: rgba(255, 255, 255, 0.606);
+
+@mixin secondary-shadow() {
+    color: $secondary1;
+    text-shadow: 3px 3px $secondary2;
+}
+
+// Reference: https://codepen.io/mirandalwashburn/pen/QWELaGp
+@mixin title-shadow() {
+    text-shadow:
+        -2.67px -2.67px $primary2,
+        -2.22px -2.22px $primary2,
+        -1.78px -1.78px $primary2,
+        -1.33px -1.33px $primary2,
+        -0.89px -0.89px $primary2,
+        -0.44px -0.44px $primary2,
+        0.44px 0.44px $primary2,
+        0.89px 0.89px $primary2,
+        1.33px 1.33px $primary2,
+        1.78px 1.78px $primary2,
+        2.22px 2.22px $primary2,
+        2.67px 2.67px $primary2,
+        3.11px 3.11px $primary2,
+        3.56px 3.56px $primary2,
+        4px 4px $primary2,
+        4.44px 4.44px $primary2,
+        4.89px 4.89px $primary2,
+        5.33px 5.33px $primary2,
+        5.78px 5.78px $primary2,
+        6.22px 6.22px $primary2,
+        6.67px 6.67px $primary2,
+        7.11px 7.11px $primary2,
+        7.56px 7.56px $primary2,
+        8px 8px $primary2,
+        8.44px 8.44px $primary2,
+        8.89px 8.89px $primary2,
+        9.33px 9.33px $primary2,
+        9.78px 9.78px $primary2,
+        10.22px 10.22px $primary2,
+        10.67px 10.67px $primary2,
+        11.11px 11.11px $primary2,
+        11.56px 11.56px $primary2,
+        12px 12px $primary2,
+        12.44px 12.44px $primary2,
+        12.89px 12.89px $primary2,
+        13.33px 13.33px $primary2,
+        13.78px 13.78px $primary2,
+        14.22px 14.22px $primary2,
+        14.67px 14.67px $primary2,
+        15.11px 15.11px $primary2,
+        15.56px 15.56px $primary2,
+        16px 16px $primary2;
+}
+
+// Reference: https://codepen.io/Rybak/pen/xdzXNj
+.game-button {
+    position: relative;
+    top: 0;
+    cursor: pointer;
+    text-decoration: none !important;
+    outline: none !important;
+    font-family: "Carter One", sans-serif;
+    font-size: 20px;
+    line-height: 1.5em;
+    letter-spacing: 0.1em;
+    text-shadow:
+        2px 2px 1px #0066a2,
+        -2px 2px 1px #0066a2,
+        2px -2px 1px #0066a2,
+        -2px -2px 1px #0066a2,
+        0px 2px 1px #0066a2,
+        0px -2px 1px #0066a2,
+        0px 4px 1px #004a87,
+        2px 4px 1px #004a87,
+        -2px 4px 1px #004a87;
+    border: none;
+    margin: 15px 15px 30px;
+    background: repeating-linear-gradient(45deg, #3ebbf7, #3ebbf7 5px, #45b1f4 5px, #45b1f4 10px);
+    border-bottom: 3px solid rgba(16, 91, 146, 0.5);
+    border-top: 3px solid rgba(255, 255, 255, 0.3);
+    color: #fff !important;
+    border-radius: 32px;
+    padding: 8px 15px 10px;
+    box-shadow:
+        0 6px 0 #266b91,
+        0 8px 1px 1px rgba(0, 0, 0, 0.3),
+        0 10px 0 5px #12517d,
+        0 12px 0 5px #1a6b9a,
+        0 15px 0 5px #0c405e,
+        0 15px 1px 6px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+    &:hover,
+    &:focus {
+        top: 2px;
+        box-shadow:
+            0 4px 0 #266b91,
+            0 6px 1px 1px rgba(0, 0, 0, 0.3),
+            0 8px 0 5px #12517d,
+            0 10px 0 5px #1a6b9a,
+            0 13px 0 5px #0c405e,
+            0 13px 1px 6px rgba(0, 0, 0, 0.3);
+    }
+    &::before {
+        content: "";
+        height: 10%;
+        position: absolute;
+        width: 40%;
+        background: #fff;
+        right: 13%;
+        top: -3%;
+        border-radius: 99px;
+    }
+    &::after {
+        content: "";
+        height: 10%;
+        position: absolute;
+        width: 5%;
+        background: #fff;
+        right: 5%;
+        top: -3%;
+        border-radius: 99px;
+    }
+
+    &.orange {
+        background: repeating-linear-gradient(45deg, #ffc800, #ffc800 5px, #ffc200 5px, #ffc200 10px);
+        box-shadow:
+            0 6px 0 #b76113,
+            0 8px 1px 1px rgba(0, 0, 0, 0.3),
+            0 10px 0 5px #75421f,
+            0 12px 0 5px #8a542b,
+            0 15px 0 5px #593116,
+            0 15px 1px 6px rgba(0, 0, 0, 0.3);
+        border-bottom: 3px solid rgba(205, 102, 0, 0.5);
+        text-shadow:
+            2px 2px 1px #e78700,
+            -2px 2px 1px #e78700,
+            2px -2px 1px #e78700,
+            -2px -2px 1px #e78700,
+            0px 2px 1px #e78700,
+            0px -2px 1px #e78700,
+            0px 4px 1px #c96100,
+            2px 4px 1px #c96100,
+            -2px 4px 1px #c96100;
+        &:hover,
+        &:focus {
+            top: 2px;
+            box-shadow:
+                0 4px 0 #b76113,
+                0 6px 1px 1px rgba(0, 0, 0, 0.3),
+                0 8px 0 5px #75421f,
+                0 10px 0 5px #8a542b,
+                0 13px 0 5px #593116,
+                0 13px 1px 6px rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    &.red {
+        background: repeating-linear-gradient(45deg, #ff4f4c, #ff4f4c 5px, #ff4643 5px, #ff4643 10px);
+        box-shadow:
+            0 6px 0 #ae2725,
+            0 8px 1px 1px rgba(0, 0, 0, 0.3),
+            0 10px 0 5px #831614,
+            0 12px 0 5px #a33634,
+            0 15px 0 5px #631716,
+            0 15px 1px 6px rgba(0, 0, 0, 0.3);
+        border-bottom: 3px solid rgba(160, 25, 23, 0.5);
+        text-shadow:
+            2px 2px 1px #d72d21,
+            -2px 2px 1px #d72d21,
+            2px -2px 1px #d72d21,
+            -2px -2px 1px #d72d21,
+            0px 2px 1px #d72d21,
+            0px -2px 1px #d72d21,
+            0px 4px 1px #930704,
+            2px 4px 1px #930704,
+            -2px 4px 1px #930704;
+        &:hover,
+        &:focus {
+            top: 2px;
+            box-shadow:
+                0 4px 0 #ae2725,
+                0 6px 1px 1px rgba(0, 0, 0, 0.3),
+                0 8px 0 5px #831614,
+                0 10px 0 5px #a33634,
+                0 13px 0 5px #631716,
+                0 13px 1px 6px rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    &.green {
+        background: repeating-linear-gradient(45deg, #54d440, #54d440 5px, #52cc3f 5px, #52cc3f 10px);
+        box-shadow:
+            0 6px 0 #348628,
+            0 8px 1px 1px rgba(0, 0, 0, 0.3),
+            0 10px 0 5px #2a6d20,
+            0 12px 0 5px #39822e,
+            0 15px 0 5px #1d4c16,
+            0 15px 1px 6px rgba(0, 0, 0, 0.3);
+        border-bottom: 3px solid rgba(40, 117, 29, 0.5);
+        text-shadow:
+            2px 2px 1px #348628,
+            -2px 2px 1px #348628,
+            2px -2px 1px #348628,
+            -2px -2px 1px #348628,
+            0px 2px 1px #348628,
+            0px -2px 1px #348628,
+            0px 4px 1px #1d4c16,
+            2px 4px 1px #1d4c16,
+            -2px 4px 1px #1d4c16;
+        &:hover,
+        &:focus {
+            top: 2px;
+            box-shadow:
+                0 4px 0 #348628,
+                0 6px 1px 1px rgba(0, 0, 0, 0.3),
+                0 8px 0 5px #2a6d20,
+                0 10px 0 5px #39822e,
+                0 13px 0 5px #1d4c16,
+                0 13px 1px 6px rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    &:disabled {
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: $transparent1;
+            pointer-events: none;
+        }
+    }
+}
