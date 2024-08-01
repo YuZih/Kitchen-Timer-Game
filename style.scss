@@ -15,31 +15,18 @@
   transition: background 0.7s ease-in-out;
   overflow: hidden;
 
-  .desk {
+  .table {
     z-index: -1;
     position: absolute;
     bottom: 0;
     width: 100%;
-    transform: translateY(0);
+    transform: translateY(100px);
     transition: transform 0.8s ease-in-out;
     pointer-events: none;
   }
 
   .page {
     z-index: 0;
-    transition: opacity 0.8s ease-out;
-    &#page1 {
-      opacity: 1;
-      height: auto;
-    }
-
-    &#page2 {
-      opacity: 0;
-      height: 0;
-    }
-  }
-
-  #page1 {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -48,61 +35,24 @@
     gap: 15px;
     width: 100vw;
     height: 100vh !important;
-
-    .title {
-      color: $primary1;
-      font-family: "Luckiest Guy", cursive;
-      font-size: 80px;
-      text-align: center;
-      letter-spacing: 4.44px;
-      @include title-shadow;
+    transition: opacity 1s ease-out;
+    &#page1 {
+      opacity: 1;
+      height: auto;
     }
 
-    #userName {
-      width: 330px;
-      padding: 0 10px;
-      font-size: 32px;
-      border: 7px solid $secondary3;
-      border-radius: 20px;
-      background: $transparent1;
-      color: $secondary2;
-
-      &:focus {
-        outline: none;
-        color: $secondary2;
-      }
-
-      // Reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_placeholder
-      &::placeholder {
-        color: $gray1;
-        opacity: 1; // Firefox
-      }
-      &::-ms-input-placeholder {
-        color: $secondary3; // Edge 12-18
+    &#page2 {
+      opacity: 0;
+      height: 0 !important;
+      .page2Content {
+        transform: translateY(-200%);
       }
     }
+  }
 
+  #page1 {
     #levelsCtn {
-      position: absolute;
-      top: 50px;
-      left: 50px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 10px;
-
-      button.level {
-        width: 200px;
-        border-radius: 20px;
-        border: none;
-        background: $transparent1;
-        text-align: left;
-        @include secondary-shadow();
-        &:focus {
-          outline: 5px solid $secondary1;
-        }
-      }
+      @include leftTopBtnCtn();
 
       .levelRadioInput {
         // hide the default radio button
@@ -136,13 +86,13 @@
       .levelRadioButton::after {
         // inner circle
         content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
         display: block;
         height: 0.5rem;
         width: 0.5rem;
         border-radius: 50%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
         transform: translate(-50%, -50%);
         background-color: $secondary1;
         opacity: 0;
@@ -155,23 +105,126 @@
       }
     }
 
-    #startBtn {
-      // padding: 10px 30px;
-      border-radius: 32px;
-      font-size: 32px;
+    .page1Content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      .title {
+        color: $primary1;
+        font-family: "Luckiest Guy", cursive;
+        font-size: 80px;
+        text-align: center;
+        letter-spacing: 4.44px;
+        @include title-shadow;
+      }
+
+      #userName {
+        width: 330px;
+        padding: 0 10px;
+        font-size: 32px;
+        border: 7px solid $secondary3;
+        border-radius: 20px;
+        background: $transparent1;
+        color: $secondary2;
+
+        &:focus {
+          outline: none;
+          color: $secondary2;
+        }
+
+        // Reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_placeholder
+        &::placeholder {
+          color: $gray1;
+          opacity: 1; // Firefox
+        }
+        &::-ms-input-placeholder {
+          color: $secondary3; // Edge 12-18
+        }
+      }
+
+      #startBtn {
+        // padding: 10px 30px;
+        border-radius: 32px;
+        font-size: 32px;
+      }
     }
   }
 
-  #timerDisplay {
-    margin: auto;
-    transition: 1s all ease-in-out;
-    font-family: "Rubik Mono One", monospace;
-  }
+  #page2 {
+    #recordsCtn {
+      @include leftTopBtnCtn();
+      button {
+        padding: 0 20px;
+      }
+    }
+    .page2Content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .targetTimeCtn {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      font-family: "Luckiest Guy", cursive;
+      font-size: 80px;
+      text-align: center;
+      letter-spacing: 4.44px;
+      background: $transparent1;
 
-  .blur {
-    filter: blur(10px);
-    &-less {
-      filter: blur(5px);
+      .targetTimeCircle {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: conic-gradient(from 0deg, #ff4d4d, #ffcc00, #33cc33, #33ccff, #ff4d4d);
+        -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 30px), black calc(100% - 25px));
+        mask: radial-gradient(farthest-side, transparent calc(100% - 30px), black calc(100% - 25px));
+        animation: rotate 3s linear infinite;
+      }
+      #targetTimeDisplay {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 190px;
+        @include secondary-shadow();
+      }
+      #timerDisplay {
+        position: absolute;
+        bottom: 100px;
+        padding: 2px 5px;
+        border-radius: 20px;
+        font-family: "Rubik Mono One", monospace;
+        transition: 1s all ease-in-out;
+      }
+    }
+
+    .mask {
+      color: transparent;
+      background: black;
+      &::after {
+        content: "???";
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        height: 100%;
+        width: 100%;
+        color: white;
+      }
+      &-less {
+        filter: blur(8px);
+        color: inherit;
+        background: rgba(0, 0, 0, 0.428);
+      }
     }
   }
 }
@@ -180,17 +233,30 @@
 .appPlaying .kitchen {
   background-size: 130%;
   background-position: 50% 50%;
-  .desk {
-    transform: translateY(100%) !important;
+  .table {
+    transform: translateY(110%) !important;
   }
   .page {
     &#page1 {
       opacity: 0;
       height: 0 !important;
+      #levelsCtn {
+        display: none;
+      }
+      .page1Content {
+        transform: translateY(-200%);
+      }
     }
     &#page2 {
       opacity: 1;
-      height: auto;
+      height: 100vh !important;
+      .page2Content {
+        transform: translateY(0);
+      }
     }
   }
+}
+
+.modal {
+  font-size: 16px !important;
 }

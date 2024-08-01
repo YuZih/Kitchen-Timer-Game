@@ -160,9 +160,6 @@ class KitchenTimerGameServer {
 		});
 	}
 
-	/**
-	 * @todo 將 level 改成用卡片的方式之後，需要修改這個程式碼！
-	 */
 	getSelectedLevel() {
 		let level;
 		document.getElementsByName('level').forEach((radio) => {
@@ -200,27 +197,28 @@ class KitchenTimerGameServer {
 
 		// 加上遮罩遮擋計時器文字
 		if (this.passedMillisecond === 3000) {
-			this.timerDisplay.classList.add('blur');
+			this.timerDisplay.classList.add('mask');
 		}
 	}
 
-	/**
-	 * @todo 將 level 改成用卡片的方式，就可以不避免檢查 level 是否為 undefined 了！
-	 */
 	startGame() {
+		// 檢查是否有選擇等級
+		const level = this.getSelectedLevel();
+		if (level === undefined) {
+			alert('Please select a level!');
+			return;
+		}
+
+		// 更新等級
+		this.selectedLevel = level;
+
+		// 切換遊戲狀態
 		this.app.classList.toggle('appPlaying');
 
-		// const level = this.getSelectedLevel();
-		// if (level === undefined) {
-		//   alert("Please select a level!");
-		//   return;
-		// }
-		// this.selectedLevel = level;
-
-		/** 移除開始按鈕焦點以避免重複點擊 */
+		// 移除開始按鈕焦點以避免重複點擊
 		this.startBtn.blur();
 
-		/** 確認玩家 */
+		// 確認玩家
 		const nameInputted = this.userNameInput.value.trim();
 		if (this.userName !== nameInputted) {
 			this.userName = nameInputted;
@@ -230,29 +228,25 @@ class KitchenTimerGameServer {
 			this.userRecords = this.setDefaultRecord();
 		}
 
-		/** 更新等級 */
-		this.selectedLevel = this.getSelectedLevel();
-		console.log(1, 'selectedLevel:', this.selectedLevel);
-
-		/** 設定目標時間 */
+		// 設定目標時間
 		const levelSettings = this.levelSettings[this.selectedLevel];
 		this.targetTime = this.getRandomIntTime(
 			levelSettings.minTargetTime,
 			levelSettings.maxTargetTime
 		);
-		this.targetTimeDisplay.textContent = `Target: ${this.targetTime}`;
+		this.targetTimeDisplay.textContent = `${this.targetTime}`;
 
-		/** 重置計時器秒數 */
+		// 重置計時器秒數
 		this.passedMillisecond = 0;
 		this.updateTimerDisplay();
 
-		/** 重置按鈕狀態 */
+		// 重置按鈕狀態
 		this.togglePage2ButtonTabIndex();
 		this.endBtn.disabled = true;
 		this.pauseToggleBtn.disabled = true;
 		this.pauseToggleBtn.textContent = 'Pause';
 
-		/** 清除任何存在的計時器＆定時器，避免重複計時或加速計時 */
+		// 清除任何存在的計時器＆定時器，避免重複計時或加速計時
 		if (this.timer) {
 			clearInterval(this.timer);
 		}
@@ -260,7 +254,7 @@ class KitchenTimerGameServer {
 			clearTimeout(this.timeout);
 		}
 
-		/** 2 秒後開始計時 */
+		// 2 秒後開始計時
 		this.timeout = setTimeout(() => {
 			this.runTimer();
 			clearTimeout();
@@ -301,10 +295,10 @@ class KitchenTimerGameServer {
 	toggleGamePause() {
 		if (this.isRunning) {
 			this.stopTimer(false);
-			this.timerDisplay.classList.add('blur-less');
+			this.timerDisplay.classList.add('mask-less');
 		} else {
 			this.runTimer();
-			this.timerDisplay.classList.remove('blur-less');
+			this.timerDisplay.classList.remove('mask-less');
 		}
 	}
 
@@ -312,23 +306,26 @@ class KitchenTimerGameServer {
 		if (this.isRunning) {
 			this.stopTimer(true);
 			this.saveUserRecord(isBack);
-			this.timerDisplay.classList.remove('blur');
 		}
-
-		// 移除鍵盤按下事件
-		document.removeEventListener('keydown', this.handleKeydown);
 	}
 
 	backToPage1() {
 		this.endGame(true);
 		this.app.classList.toggle('appPlaying');
 		this.togglePage2ButtonTabIndex();
+		// 移除遮罩
+		this.timerDisplay.classList.remove('mask', 'mask-less');
+		// 移除鍵盤按下事件
+		document.removeEventListener('keydown', this.handleKeydown);
 	}
 
 	handleKeydown(event) {
+		console.log(1, 'event', event);
 		if (event.shiftKey) {
 			if (event.code === 'KeyS') {
 				this.toggleGamePause();
+			} else if (event.code === 'KeyQ') {
+				this.backToPage1();
 			}
 		} else if (event.code === 'Space') {
 			this.endGame();

@@ -12,6 +12,39 @@ $transparent1: rgba(255, 255, 255, 0.606);
     text-shadow: 3px 3px $secondary2;
 }
 
+@mixin leftTopBtnCtn() {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+
+    button {
+        width: 200px;
+        height: 54.5px;
+        border-radius: 20px;
+        border: none;
+        background: $transparent1;
+        text-align: left;
+        @include secondary-shadow();
+        &:focus {
+            outline: 5px solid $secondary1;
+        }
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 // Reference: https://codepen.io/mirandalwashburn/pen/QWELaGp
 @mixin title-shadow() {
     text-shadow:
@@ -66,7 +99,6 @@ $transparent1: rgba(255, 255, 255, 0.606);
     cursor: pointer;
     text-decoration: none !important;
     outline: none !important;
-    font-family: "Carter One", sans-serif;
     font-size: 20px;
     line-height: 1.5em;
     letter-spacing: 0.1em;

@@ -1,10 +1,17 @@
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .game-button {
   position: relative;
   top: 0;
   cursor: pointer;
   text-decoration: none !important;
   outline: none !important;
-  font-family: "Carter One", sans-serif;
   font-size: 20px;
   line-height: 1.5em;
   letter-spacing: 0.1em;
