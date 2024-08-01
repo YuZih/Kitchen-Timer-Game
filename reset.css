@@ -1,0 +1,30 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rubik+Mono+One");
+* {
+  font-size: 32px;
+  font-family: "Roboto Mono", monospace;
+  font-weight: 500;
+  -webkit-text-size-adjust: none;
+     -moz-text-size-adjust: none;
+          text-size-adjust: none;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: inherit; /* no underline */
+  color: inherit;
+}
+
+input {
+  font-size: initial;
+} /* 避免輸入時手機版畫面自動放大 */
