@@ -11,6 +11,7 @@
   width: 100vw;
   height: 100vh;
   text-align: center;
+  // image source: https://www.freepik.com/serie/94577256?fbclid=IwZXh0bgNhZW0CMTEAAR0ga5WVpFIpir_or4XQCPiePJyF-uUhzCotxIvppBjJl2nHEn3kSQuVwAk_aem_VeLMO5UeCB0LVys-UY-hyg
   background: url("./assets/image/bg.png") no-repeat 50% 30% / 100%;
   transition: background 0.7s ease-in-out;
   overflow: hidden;
@@ -182,7 +183,7 @@
       letter-spacing: 4.44px;
       background: $transparent1;
 
-      .targetTimeCircle {
+      #targetTimeCircle {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -190,7 +191,9 @@
         background: conic-gradient(from 0deg, #ff4d4d, #ffcc00, #33cc33, #33ccff, #ff4d4d);
         -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 30px), black calc(100% - 25px));
         mask: radial-gradient(farthest-side, transparent calc(100% - 30px), black calc(100% - 25px));
-        animation: rotate 3s linear infinite;
+        &.rotate {
+          animation: rotate 3s linear infinite;
+        }
       }
 
       #targetTimeDisplay {
@@ -209,6 +212,18 @@
         border-radius: 20px;
         font-family: "Rubik Mono One", monospace;
         transition: 1s all ease-in-out;
+        &::after {
+          content: "???";
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: block;
+          height: 100%;
+          width: 100%;
+          color: white;
+          opacity: 0;
+          transition: 1s all ease-in-out;
+        }
       }
 
       &.mask {
@@ -216,25 +231,18 @@
           color: transparent;
           background: black;
           &::after {
-            content: "???";
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: block;
-            height: 100%;
-            width: 100%;
-            color: white;
+            opacity: 1;
           }
         }
       }
       &.mask-less {
-        .targetTimeCircle {
-          animation: none;
-        }
         #timerDisplay {
           filter: blur(8px);
           color: inherit;
           background: rgba(0, 0, 0, 0.428);
+          &::after {
+            opacity: 0;
+          }
         }
       }
     }

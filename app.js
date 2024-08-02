@@ -1,10 +1,15 @@
-import { GAME_SETTING, RECENT_RECORDS_COUNT } from './config.js';
+import {
+	GAME_SETTING,
+	RECENT_RECORDS_COUNT,
+	SHORT_PAUSE_TIME,
+} from './config.js';
 
 class KitchenTimerGameServer {
 	constructor() {
 		/** Variables */
 		this.levelSettings = GAME_SETTING;
 		this.recentRecordsCount = RECENT_RECORDS_COUNT;
+		this.shortPauseTime = SHORT_PAUSE_TIME;
 		this.allPlayersRecords = this.initAllPlayersRecords(); // functioning as a database
 		this.userName = this.initUserName();
 		this.userRecords = this.initUserRecords();
@@ -22,6 +27,7 @@ class KitchenTimerGameServer {
 		this.levelsCtn = document.getElementById('levelsCtn');
 		this.startBtn = document.getElementById('startBtn');
 		this.targetTimeCtn = document.getElementById('targetTimeCtn');
+		this.targetTimeCircle = document.getElementById('targetTimeCircle');
 		this.targetTimeDisplay = document.getElementById('targetTimeDisplay');
 		this.timerDisplay = document.getElementById('timerDisplay');
 		this.againBtn = document.getElementById('againBtn');
@@ -129,6 +135,7 @@ class KitchenTimerGameServer {
 		});
 
 		this.againBtn.addEventListener('click', () => {
+			this.isGamePlaying = true;
 			this.startGame();
 		});
 
@@ -209,10 +216,11 @@ class KitchenTimerGameServer {
 	}
 
 	startGame() {
-		// 檢查是否有選擇等級
+		// 檢查是否有選擇等級以及輸入使用者名稱
 		const level = this.getSelectedLevel();
-		if (level === undefined) {
-			alert('Please select a level!');
+		const nameInputted = this.userNameInput.value.trim();
+		if (!nameInputted || level === undefined) {
+			alert('Please select a level & enter your name!');
 			return;
 		}
 
@@ -221,7 +229,7 @@ class KitchenTimerGameServer {
 
 		// 畫面換頁
 		if (!this.isGamePlaying) {
-			this.app.classList.toggle('inPage2');
+			this.app.classList.add('inPage2');
 		}
 
 		// 切換遊戲狀態
@@ -231,7 +239,6 @@ class KitchenTimerGameServer {
 		this.startBtn.blur();
 
 		// 確認玩家
-		const nameInputted = this.userNameInput.value.trim();
 		if (this.userName !== nameInputted) {
 			this.userName = nameInputted;
 			this.saveUserName();
@@ -266,11 +273,11 @@ class KitchenTimerGameServer {
 			clearTimeout(this.timeout);
 		}
 
-		// 2 秒後開始計時
+		// 短暫停頓後開始計時
 		this.timeout = setTimeout(() => {
 			this.runTimer();
 			clearTimeout();
-		}, 2000);
+		}, this.shortPauseTime * 1000);
 	}
 
 	runTimer() {
@@ -285,6 +292,9 @@ class KitchenTimerGameServer {
 		this.endBtn.disabled = false;
 		this.pauseToggleBtn.disabled = false;
 		this.pauseToggleBtn.textContent = 'Pause';
+
+		// 讓計時器外環旋轉
+		this.targetTimeCircle.classList.add('rotate');
 
 		// 添加鍵盤按下事件
 		document.addEventListener('keydown', this.handleKeydown);
@@ -302,6 +312,9 @@ class KitchenTimerGameServer {
 		} else {
 			this.pauseToggleBtn.textContent = 'Continue';
 		}
+
+		// 讓計時器外環停止旋轉
+		this.targetTimeCircle.classList.remove('rotate');
 	}
 
 	toggleGamePause() {
@@ -536,8 +549,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		if (event.shiftKey && event.code === 'KeyA') {
 			if (game.isGamePlaying) {
-				// 移除遮罩
+				// 遊戲中重來的話就移除遮罩
 				game.targetTimeCtn.classList.remove('mask', 'mask-less');
+				// 遊戲中重來的話就讓計時器外環停止旋轉
+				game.targetTimeCircle.classList.remove('rotate');
 			}
 			game.startGame();
 		}

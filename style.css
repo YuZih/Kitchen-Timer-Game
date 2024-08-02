@@ -323,7 +323,7 @@ input {
   letter-spacing: 4.44px;
   background: rgba(255, 255, 255, 0.606);
 }
-.kitchen #page2 #targetTimeCtn .targetTimeCircle {
+.kitchen #page2 #targetTimeCtn #targetTimeCircle {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -331,6 +331,8 @@ input {
   background: conic-gradient(from 0deg, #ff4d4d, #ffcc00, #33cc33, #33ccff, #ff4d4d);
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 30px), black calc(100% - 25px));
   mask: radial-gradient(farthest-side, transparent calc(100% - 30px), black calc(100% - 25px));
+}
+.kitchen #page2 #targetTimeCtn #targetTimeCircle.rotate {
   animation: rotate 3s linear infinite;
 }
 .kitchen #page2 #targetTimeCtn #targetTimeDisplay {
@@ -350,11 +352,7 @@ input {
   font-family: "Rubik Mono One", monospace;
   transition: 1s all ease-in-out;
 }
-.kitchen #page2 #targetTimeCtn.mask #timerDisplay {
-  color: transparent;
-  background: black;
-}
-.kitchen #page2 #targetTimeCtn.mask #timerDisplay::after {
+.kitchen #page2 #targetTimeCtn #timerDisplay::after {
   content: "???";
   position: absolute;
   top: 0;
@@ -363,14 +361,23 @@ input {
   height: 100%;
   width: 100%;
   color: white;
+  opacity: 0;
+  transition: 1s all ease-in-out;
 }
-.kitchen #page2 #targetTimeCtn.mask-less .targetTimeCircle {
-  animation: none;
+.kitchen #page2 #targetTimeCtn.mask #timerDisplay {
+  color: transparent;
+  background: black;
+}
+.kitchen #page2 #targetTimeCtn.mask #timerDisplay::after {
+  opacity: 1;
 }
 .kitchen #page2 #targetTimeCtn.mask-less #timerDisplay {
   filter: blur(8px);
   color: inherit;
   background: rgba(0, 0, 0, 0.428);
+}
+.kitchen #page2 #targetTimeCtn.mask-less #timerDisplay::after {
+  opacity: 0;
 }
 
 .inPage2 .kitchen {

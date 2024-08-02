@@ -10,3 +10,5 @@ export const GAME_SETTING = {
 };
 
 export const RECENT_RECORDS_COUNT = 5;
+
+export const SHORT_PAUSE_TIME = 2;
