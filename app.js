@@ -13,6 +13,7 @@ class KitchenTimerGameServer {
 		this.passedMillisecond = 0; // set in millisecond
 		this.timer = null;
 		this.timeout = null;
+		this.isGamePlaying = false;
 		this.isRunning = false;
 
 		/** Elements References */
@@ -20,8 +21,10 @@ class KitchenTimerGameServer {
 		this.userNameInput = document.getElementById('userName');
 		this.levelsCtn = document.getElementById('levelsCtn');
 		this.startBtn = document.getElementById('startBtn');
+		this.targetTimeCtn = document.getElementById('targetTimeCtn');
 		this.targetTimeDisplay = document.getElementById('targetTimeDisplay');
 		this.timerDisplay = document.getElementById('timerDisplay');
+		this.againBtn = document.getElementById('againBtn');
 		this.pauseToggleBtn = document.getElementById('pauseToggleBtn');
 		this.endBtn = document.getElementById('endBtn');
 		this.backBtn = document.getElementById('backBtn');
@@ -125,6 +128,10 @@ class KitchenTimerGameServer {
 			this.startGame();
 		});
 
+		this.againBtn.addEventListener('click', () => {
+			this.startGame();
+		});
+
 		this.pauseToggleBtn.addEventListener('click', () => {
 			this.toggleGamePause();
 		});
@@ -197,7 +204,7 @@ class KitchenTimerGameServer {
 
 		// 加上遮罩遮擋計時器文字
 		if (this.passedMillisecond === 3000) {
-			this.timerDisplay.classList.add('mask');
+			this.targetTimeCtn.classList.add('mask');
 		}
 	}
 
@@ -212,8 +219,13 @@ class KitchenTimerGameServer {
 		// 更新等級
 		this.selectedLevel = level;
 
+		// 畫面換頁
+		if (!this.isGamePlaying) {
+			this.app.classList.toggle('inPage2');
+		}
+
 		// 切換遊戲狀態
-		this.app.classList.toggle('appPlaying');
+		this.isGamePlaying = true;
 
 		// 移除開始按鈕焦點以避免重複點擊
 		this.startBtn.blur();
@@ -293,28 +305,34 @@ class KitchenTimerGameServer {
 	}
 
 	toggleGamePause() {
+		if (!this.isGamePlaying) return;
 		if (this.isRunning) {
 			this.stopTimer(false);
-			this.timerDisplay.classList.add('mask-less');
+			this.targetTimeCtn.classList.add('mask-less');
 		} else {
 			this.runTimer();
-			this.timerDisplay.classList.remove('mask-less');
+			this.targetTimeCtn.classList.remove('mask-less');
 		}
 	}
 
 	endGame(isBack) {
 		if (this.isRunning) {
+			this.isGamePlaying = false;
 			this.stopTimer(true);
 			this.saveUserRecord(isBack);
+			// 移除遮罩
+			this.targetTimeCtn.classList.remove('mask', 'mask-less');
 		}
 	}
 
 	backToPage1() {
 		this.endGame(true);
-		this.app.classList.toggle('appPlaying');
+		this.app.classList.toggle('inPage2');
 		this.togglePage2ButtonTabIndex();
+
 		// 移除遮罩
-		this.timerDisplay.classList.remove('mask', 'mask-less');
+		this.targetTimeCtn.classList.remove('mask', 'mask-less');
+
 		// 移除鍵盤按下事件
 		document.removeEventListener('keydown', this.handleKeydown);
 	}
@@ -426,7 +444,11 @@ class KitchenTimerGameServer {
 				let compareIcon = '';
 				if (level === this.selectedLevel) {
 					compareIcon =
-						compareToLastTime == 0 ? '⏸️' : compareToLastTime > 0 ? '⬆️' : '⬇️';
+						compareToLastTime == 0
+							? '<i class="bi bi-arrows"></i>'
+							: compareToLastTime > 0
+							? '<i class="bi bi-caret-up-fill"></i>'
+							: '<i class="bi bi-caret-down-fill"></i>';
 				}
 				levelDetailsRawHTML += `		 
 					<tr>
@@ -451,7 +473,7 @@ class KitchenTimerGameServer {
 				const { time, level } = recentRecords[i];
 				recentRecordsRawHTML += `
 					<tr>
-						<th>#${order}</th>
+						<th>${order}</th>
 						<td>${time.toFixed(2)}</td>
 						<td>${level}</td>
 					</tr>
@@ -483,6 +505,7 @@ class KitchenTimerGameServer {
 	}
 }
 
+// 待網頁載入後啟動遊戲
 document.addEventListener('DOMContentLoaded', () => {
 	const game = new KitchenTimerGameServer();
 
@@ -506,4 +529,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Avoid selecting buttons in page2 by click tab key
 	game.togglePage2ButtonTabIndex();
+
+	// Auto start/restart game by pressing 'Shift + A'
+	document.addEventListener('keydown', (event) => {
+		console.log(0, 'event', event);
+
+		if (event.shiftKey && event.code === 'KeyA') {
+			if (game.isGamePlaying) {
+				// 移除遮罩
+				game.targetTimeCtn.classList.remove('mask', 'mask-less');
+			}
+			game.startGame();
+		}
+	});
 });

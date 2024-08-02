@@ -1,5 +1,6 @@
 $primary1: rgb(246, 186, 208);
 $primary2: rgb(219, 98, 98);
+$primary3: rgba(148, 153, 233);
 $secondary1: rgb(255, 149, 0);
 $secondary2: rgb(121, 72, 3);
 $secondary3: rgb(255, 166, 43);
@@ -99,7 +100,8 @@ $transparent1: rgba(255, 255, 255, 0.606);
     cursor: pointer;
     text-decoration: none !important;
     outline: none !important;
-    font-size: 20px;
+    min-width: 100px;
+    font-size: 28px;
     line-height: 1.5em;
     letter-spacing: 0.1em;
     text-shadow:

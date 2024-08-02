@@ -42,7 +42,8 @@ input {
   cursor: pointer;
   text-decoration: none !important;
   outline: none !important;
-  font-size: 20px;
+  min-width: 100px;
+  font-size: 28px;
   line-height: 1.5em;
   letter-spacing: 0.1em;
   text-shadow: 2px 2px 1px #0066a2, -2px 2px 1px #0066a2, 2px -2px 1px #0066a2, -2px -2px 1px #0066a2, 0px 2px 1px #0066a2, 0px -2px 1px #0066a2, 0px 4px 1px #004a87, 2px 4px 1px #004a87, -2px 4px 1px #004a87;
@@ -136,7 +137,7 @@ input {
   transition: background 0.7s ease-in-out;
   overflow: hidden;
 }
-.kitchen .table {
+.kitchen .kitchenTable {
   z-index: -1;
   position: absolute;
   bottom: 0;
@@ -199,7 +200,7 @@ input {
   font-size: 28px;
   padding-left: 40px;
   padding: 0 10px 0 50px;
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-size: 35px;
   font-weight: 700;
   cursor: pointer;
@@ -300,13 +301,14 @@ input {
 }
 .kitchen #page2 #recordsCtn button {
   padding: 0 20px;
+  text-transform: uppercase;
 }
 .kitchen #page2 .page2Content {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.kitchen #page2 .targetTimeCtn {
+.kitchen #page2 #targetTimeCtn {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -321,7 +323,7 @@ input {
   letter-spacing: 4.44px;
   background: rgba(255, 255, 255, 0.606);
 }
-.kitchen #page2 .targetTimeCtn .targetTimeCircle {
+.kitchen #page2 #targetTimeCtn .targetTimeCircle {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -331,7 +333,7 @@ input {
   mask: radial-gradient(farthest-side, transparent calc(100% - 30px), black calc(100% - 25px));
   animation: rotate 3s linear infinite;
 }
-.kitchen #page2 .targetTimeCtn #targetTimeDisplay {
+.kitchen #page2 #targetTimeCtn #targetTimeDisplay {
   position: absolute;
   top: 40%;
   left: 50%;
@@ -340,7 +342,7 @@ input {
   color: rgb(255, 149, 0);
   text-shadow: 3px 3px rgb(121, 72, 3);
 }
-.kitchen #page2 .targetTimeCtn #timerDisplay {
+.kitchen #page2 #targetTimeCtn #timerDisplay {
   position: absolute;
   bottom: 100px;
   padding: 2px 5px;
@@ -348,11 +350,11 @@ input {
   font-family: "Rubik Mono One", monospace;
   transition: 1s all ease-in-out;
 }
-.kitchen #page2 .mask {
+.kitchen #page2 #targetTimeCtn.mask #timerDisplay {
   color: transparent;
   background: black;
 }
-.kitchen #page2 .mask::after {
+.kitchen #page2 #targetTimeCtn.mask #timerDisplay::after {
   content: "???";
   position: absolute;
   top: 0;
@@ -362,37 +364,108 @@ input {
   width: 100%;
   color: white;
 }
-.kitchen #page2 .mask-less {
+.kitchen #page2 #targetTimeCtn.mask-less .targetTimeCircle {
+  animation: none;
+}
+.kitchen #page2 #targetTimeCtn.mask-less #timerDisplay {
   filter: blur(8px);
   color: inherit;
   background: rgba(0, 0, 0, 0.428);
 }
 
-.appPlaying .kitchen {
+.inPage2 .kitchen {
   background-size: 130%;
   background-position: 50% 50%;
 }
-.appPlaying .kitchen .table {
+.inPage2 .kitchen .kitchenTable {
   transform: translateY(110%) !important;
 }
-.appPlaying .kitchen .page#page1 {
+.inPage2 .kitchen .page#page1 {
   opacity: 0;
   height: 0 !important;
 }
-.appPlaying .kitchen .page#page1 #levelsCtn {
+.inPage2 .kitchen .page#page1 #levelsCtn {
   display: none;
 }
-.appPlaying .kitchen .page#page1 .page1Content {
+.inPage2 .kitchen .page#page1 .page1Content {
   transform: translateY(-200%);
 }
-.appPlaying .kitchen .page#page2 {
+.inPage2 .kitchen .page#page2 {
   opacity: 1;
   height: 100vh !important;
 }
-.appPlaying .kitchen .page#page2 .page2Content {
+.inPage2 .kitchen .page#page2 .page2Content {
   transform: translateY(0);
 }
 
-.modal {
-  font-size: 16px !important;
+.modal * {
+  font-size: 20px !important;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.modal .modal-dialog {
+  min-width: 35vw;
+}
+.modal .modal-header {
+  padding: 10px 32px;
+  border-bottom: 3px solid white;
+}
+.modal .modal-title {
+  font-size: 32px !important;
+}
+.modal .modal-content {
+  color: white;
+  background: rgb(246, 186, 208);
+  background: radial-gradient(circle, rgb(246, 186, 208) 0%, rgb(148, 153, 233) 100%);
+  box-shadow: 5px 5px 50px rgb(219, 98, 98);
+}
+.modal .modal-content table {
+  border: 1px solid rgb(174, 174, 174);
+  border-collapse: collapse;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.507);
+  border-radius: 15px;
+  text-align: center;
+}
+.modal .modal-content thead {
+  border-bottom: 1px solid white;
+}
+.modal .modal-content th,
+.modal .modal-content td {
+  text-align: center;
+  padding: 2px 10px;
+  text-transform: uppercase;
+}
+.modal .modal-content .resultModalBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.modal .modal-content .recordModalBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.modal .modal-content .recordModalBody .recordModalBodyTitle {
+  font-size: 28px !important;
+}
+.modal .modal-content .recordModalBody #bestRecordDisplay {
+  font-size: 50px !important;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.507);
+  border-radius: 15px;
+  text-align: center;
+}
+.modal .modal-content .resultCloseBtn {
+  width: auto;
+  height: 40px;
+  padding: 0 10px;
+}
+.modal .modal-content .recordCloseBtn {
+  width: 40px;
+  height: 40px;
+  filter: invert(1) brightness(2);
+  padding: 0;
 }
