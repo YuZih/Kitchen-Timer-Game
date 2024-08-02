@@ -28,14 +28,22 @@ a {
 input {
   font-size: initial;
 } /* 避免輸入時手機版畫面自動放大 */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .game-button {
   position: relative;
   top: 0;
   cursor: pointer;
   text-decoration: none !important;
   outline: none !important;
-  font-family: "Carter One", sans-serif;
-  font-size: 20px;
+  min-width: 100px;
+  font-size: 28px;
   line-height: 1.5em;
   letter-spacing: 0.1em;
   text-shadow: 2px 2px 1px #0066a2, -2px 2px 1px #0066a2, 2px -2px 1px #0066a2, -2px -2px 1px #0066a2, 0px 2px 1px #0066a2, 0px -2px 1px #0066a2, 0px 4px 1px #004a87, 2px 4px 1px #004a87, -2px 4px 1px #004a87;
@@ -129,28 +137,17 @@ input {
   transition: background 0.7s ease-in-out;
   overflow: hidden;
 }
-.kitchen .desk {
+.kitchen .kitchenTable {
   z-index: -1;
   position: absolute;
   bottom: 0;
   width: 100%;
-  transform: translateY(0);
+  transform: translateY(100px);
   transition: transform 0.8s ease-in-out;
   pointer-events: none;
 }
 .kitchen .page {
   z-index: 0;
-  transition: opacity 0.8s ease-out;
-}
-.kitchen .page#page1 {
-  opacity: 1;
-  height: auto;
-}
-.kitchen .page#page2 {
-  opacity: 0;
-  height: 0;
-}
-.kitchen #page1 {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -159,38 +156,18 @@ input {
   gap: 15px;
   width: 100vw;
   height: 100vh !important;
+  transition: opacity 1s ease-out;
 }
-.kitchen #page1 .title {
-  color: rgb(246, 186, 208);
-  font-family: "Luckiest Guy", cursive;
-  font-size: 80px;
-  text-align: center;
-  letter-spacing: 4.44px;
-  text-shadow: -2.67px -2.67px rgb(219, 98, 98), -2.22px -2.22px rgb(219, 98, 98), -1.78px -1.78px rgb(219, 98, 98), -1.33px -1.33px rgb(219, 98, 98), -0.89px -0.89px rgb(219, 98, 98), -0.44px -0.44px rgb(219, 98, 98), 0.44px 0.44px rgb(219, 98, 98), 0.89px 0.89px rgb(219, 98, 98), 1.33px 1.33px rgb(219, 98, 98), 1.78px 1.78px rgb(219, 98, 98), 2.22px 2.22px rgb(219, 98, 98), 2.67px 2.67px rgb(219, 98, 98), 3.11px 3.11px rgb(219, 98, 98), 3.56px 3.56px rgb(219, 98, 98), 4px 4px rgb(219, 98, 98), 4.44px 4.44px rgb(219, 98, 98), 4.89px 4.89px rgb(219, 98, 98), 5.33px 5.33px rgb(219, 98, 98), 5.78px 5.78px rgb(219, 98, 98), 6.22px 6.22px rgb(219, 98, 98), 6.67px 6.67px rgb(219, 98, 98), 7.11px 7.11px rgb(219, 98, 98), 7.56px 7.56px rgb(219, 98, 98), 8px 8px rgb(219, 98, 98), 8.44px 8.44px rgb(219, 98, 98), 8.89px 8.89px rgb(219, 98, 98), 9.33px 9.33px rgb(219, 98, 98), 9.78px 9.78px rgb(219, 98, 98), 10.22px 10.22px rgb(219, 98, 98), 10.67px 10.67px rgb(219, 98, 98), 11.11px 11.11px rgb(219, 98, 98), 11.56px 11.56px rgb(219, 98, 98), 12px 12px rgb(219, 98, 98), 12.44px 12.44px rgb(219, 98, 98), 12.89px 12.89px rgb(219, 98, 98), 13.33px 13.33px rgb(219, 98, 98), 13.78px 13.78px rgb(219, 98, 98), 14.22px 14.22px rgb(219, 98, 98), 14.67px 14.67px rgb(219, 98, 98), 15.11px 15.11px rgb(219, 98, 98), 15.56px 15.56px rgb(219, 98, 98), 16px 16px rgb(219, 98, 98);
-}
-.kitchen #page1 #userName {
-  width: 330px;
-  padding: 0 10px;
-  font-size: 32px;
-  border: 7px solid rgb(255, 166, 43);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.606);
-  color: rgb(121, 72, 3);
-}
-.kitchen #page1 #userName:focus {
-  outline: none;
-  color: rgb(121, 72, 3);
-}
-.kitchen #page1 #userName::-moz-placeholder {
-  color: rgb(174, 174, 174);
+.kitchen .page#page1 {
   opacity: 1;
+  height: auto;
 }
-.kitchen #page1 #userName::placeholder {
-  color: rgb(174, 174, 174);
-  opacity: 1;
+.kitchen .page#page2 {
+  opacity: 0;
+  height: 0 !important;
 }
-.kitchen #page1 #userName::-ms-input-placeholder {
-  color: rgb(255, 166, 43);
+.kitchen .page#page2 .page2Content {
+  transform: translateY(-200%);
 }
 .kitchen #page1 #levelsCtn {
   position: absolute;
@@ -202,8 +179,9 @@ input {
   align-items: flex-start;
   gap: 10px;
 }
-.kitchen #page1 #levelsCtn button.level {
+.kitchen #page1 #levelsCtn button {
   width: 200px;
+  height: 54.5px;
   border-radius: 20px;
   border: none;
   background: rgba(255, 255, 255, 0.606);
@@ -211,7 +189,7 @@ input {
   color: rgb(255, 149, 0);
   text-shadow: 3px 3px rgb(121, 72, 3);
 }
-.kitchen #page1 #levelsCtn button.level:focus {
+.kitchen #page1 #levelsCtn button:focus {
   outline: 5px solid rgb(255, 149, 0);
 }
 .kitchen #page1 #levelsCtn .levelRadioInput {
@@ -222,7 +200,7 @@ input {
   font-size: 28px;
   padding-left: 40px;
   padding: 0 10px 0 50px;
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-size: 35px;
   font-weight: 700;
   cursor: pointer;
@@ -240,13 +218,13 @@ input {
 }
 .kitchen #page1 #levelsCtn .levelRadioButton::after {
   content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
   display: block;
   height: 0.5rem;
   width: 0.5rem;
   border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   background-color: rgb(255, 149, 0);
   opacity: 0;
@@ -255,34 +233,246 @@ input {
 .kitchen #page1 #levelsCtn .levelRadioInput:checked ~ .levelRadioLabel .levelRadioButton::after {
   opacity: 1;
 }
-.kitchen #page1 #startBtn {
+.kitchen #page1 .page1Content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.kitchen #page1 .page1Content .title {
+  color: rgb(246, 186, 208);
+  font-family: "Luckiest Guy", cursive;
+  font-size: 80px;
+  text-align: center;
+  letter-spacing: 4.44px;
+  text-shadow: -2.67px -2.67px rgb(219, 98, 98), -2.22px -2.22px rgb(219, 98, 98), -1.78px -1.78px rgb(219, 98, 98), -1.33px -1.33px rgb(219, 98, 98), -0.89px -0.89px rgb(219, 98, 98), -0.44px -0.44px rgb(219, 98, 98), 0.44px 0.44px rgb(219, 98, 98), 0.89px 0.89px rgb(219, 98, 98), 1.33px 1.33px rgb(219, 98, 98), 1.78px 1.78px rgb(219, 98, 98), 2.22px 2.22px rgb(219, 98, 98), 2.67px 2.67px rgb(219, 98, 98), 3.11px 3.11px rgb(219, 98, 98), 3.56px 3.56px rgb(219, 98, 98), 4px 4px rgb(219, 98, 98), 4.44px 4.44px rgb(219, 98, 98), 4.89px 4.89px rgb(219, 98, 98), 5.33px 5.33px rgb(219, 98, 98), 5.78px 5.78px rgb(219, 98, 98), 6.22px 6.22px rgb(219, 98, 98), 6.67px 6.67px rgb(219, 98, 98), 7.11px 7.11px rgb(219, 98, 98), 7.56px 7.56px rgb(219, 98, 98), 8px 8px rgb(219, 98, 98), 8.44px 8.44px rgb(219, 98, 98), 8.89px 8.89px rgb(219, 98, 98), 9.33px 9.33px rgb(219, 98, 98), 9.78px 9.78px rgb(219, 98, 98), 10.22px 10.22px rgb(219, 98, 98), 10.67px 10.67px rgb(219, 98, 98), 11.11px 11.11px rgb(219, 98, 98), 11.56px 11.56px rgb(219, 98, 98), 12px 12px rgb(219, 98, 98), 12.44px 12.44px rgb(219, 98, 98), 12.89px 12.89px rgb(219, 98, 98), 13.33px 13.33px rgb(219, 98, 98), 13.78px 13.78px rgb(219, 98, 98), 14.22px 14.22px rgb(219, 98, 98), 14.67px 14.67px rgb(219, 98, 98), 15.11px 15.11px rgb(219, 98, 98), 15.56px 15.56px rgb(219, 98, 98), 16px 16px rgb(219, 98, 98);
+}
+.kitchen #page1 .page1Content #userName {
+  width: 330px;
+  padding: 0 10px;
+  font-size: 32px;
+  border: 7px solid rgb(255, 166, 43);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.606);
+  color: rgb(121, 72, 3);
+}
+.kitchen #page1 .page1Content #userName:focus {
+  outline: none;
+  color: rgb(121, 72, 3);
+}
+.kitchen #page1 .page1Content #userName::-moz-placeholder {
+  color: rgb(174, 174, 174);
+  opacity: 1;
+}
+.kitchen #page1 .page1Content #userName::placeholder {
+  color: rgb(174, 174, 174);
+  opacity: 1;
+}
+.kitchen #page1 .page1Content #userName::-ms-input-placeholder {
+  color: rgb(255, 166, 43);
+}
+.kitchen #page1 .page1Content #startBtn {
   border-radius: 32px;
   font-size: 32px;
 }
-.kitchen #timerDisplay {
-  margin: auto;
-  transition: 1s all ease-in-out;
+.kitchen #page2 #recordsCtn {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+}
+.kitchen #page2 #recordsCtn button {
+  width: 200px;
+  height: 54.5px;
+  border-radius: 20px;
+  border: none;
+  background: rgba(255, 255, 255, 0.606);
+  text-align: left;
+  color: rgb(255, 149, 0);
+  text-shadow: 3px 3px rgb(121, 72, 3);
+}
+.kitchen #page2 #recordsCtn button:focus {
+  outline: 5px solid rgb(255, 149, 0);
+}
+.kitchen #page2 #recordsCtn button {
+  padding: 0 20px;
+  text-transform: uppercase;
+}
+.kitchen #page2 .page2Content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.kitchen #page2 #targetTimeCtn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  font-family: "Luckiest Guy", cursive;
+  font-size: 80px;
+  text-align: center;
+  letter-spacing: 4.44px;
+  background: rgba(255, 255, 255, 0.606);
+}
+.kitchen #page2 #targetTimeCtn #targetTimeCircle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #ff4d4d, #ffcc00, #33cc33, #33ccff, #ff4d4d);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 30px), black calc(100% - 25px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 30px), black calc(100% - 25px));
+}
+.kitchen #page2 #targetTimeCtn #targetTimeCircle.rotate {
+  animation: rotate 3s linear infinite;
+}
+.kitchen #page2 #targetTimeCtn #targetTimeDisplay {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 190px;
+  color: rgb(255, 149, 0);
+  text-shadow: 3px 3px rgb(121, 72, 3);
+}
+.kitchen #page2 #targetTimeCtn #timerDisplay {
+  position: absolute;
+  bottom: 100px;
+  padding: 2px 5px;
+  border-radius: 20px;
   font-family: "Rubik Mono One", monospace;
+  transition: 1s all ease-in-out;
 }
-.kitchen .blur {
-  filter: blur(10px);
+.kitchen #page2 #targetTimeCtn #timerDisplay::after {
+  content: "???";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+  color: white;
+  opacity: 0;
+  transition: 1s all ease-in-out;
 }
-.kitchen .blur-less {
-  filter: blur(5px);
+.kitchen #page2 #targetTimeCtn.mask #timerDisplay {
+  color: transparent;
+  background: black;
+}
+.kitchen #page2 #targetTimeCtn.mask #timerDisplay::after {
+  opacity: 1;
+}
+.kitchen #page2 #targetTimeCtn.mask-less #timerDisplay {
+  filter: blur(8px);
+  color: inherit;
+  background: rgba(0, 0, 0, 0.428);
+}
+.kitchen #page2 #targetTimeCtn.mask-less #timerDisplay::after {
+  opacity: 0;
 }
 
-.appPlaying .kitchen {
+.inPage2 .kitchen {
   background-size: 130%;
   background-position: 50% 50%;
 }
-.appPlaying .kitchen .desk {
-  transform: translateY(100%) !important;
+.inPage2 .kitchen .kitchenTable {
+  transform: translateY(110%) !important;
 }
-.appPlaying .kitchen .page#page1 {
+.inPage2 .kitchen .page#page1 {
   opacity: 0;
   height: 0 !important;
 }
-.appPlaying .kitchen .page#page2 {
+.inPage2 .kitchen .page#page1 #levelsCtn {
+  display: none;
+}
+.inPage2 .kitchen .page#page1 .page1Content {
+  transform: translateY(-200%);
+}
+.inPage2 .kitchen .page#page2 {
   opacity: 1;
-  height: auto;
+  height: 100vh !important;
+}
+.inPage2 .kitchen .page#page2 .page2Content {
+  transform: translateY(0);
+}
+
+.modal * {
+  font-size: 20px !important;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.modal .modal-dialog {
+  min-width: 35vw;
+}
+.modal .modal-header {
+  padding: 10px 32px;
+  border-bottom: 3px solid white;
+}
+.modal .modal-title {
+  font-size: 32px !important;
+}
+.modal .modal-content {
+  color: white;
+  background: rgb(246, 186, 208);
+  background: radial-gradient(circle, rgb(246, 186, 208) 0%, rgb(148, 153, 233) 100%);
+  box-shadow: 5px 5px 50px rgb(219, 98, 98);
+}
+.modal .modal-content table {
+  border: 1px solid rgb(174, 174, 174);
+  border-collapse: collapse;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.507);
+  border-radius: 15px;
+  text-align: center;
+}
+.modal .modal-content thead {
+  border-bottom: 1px solid white;
+}
+.modal .modal-content th,
+.modal .modal-content td {
+  text-align: center;
+  padding: 2px 10px;
+  text-transform: uppercase;
+}
+.modal .modal-content .resultModalBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.modal .modal-content .recordModalBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.modal .modal-content .recordModalBody .recordModalBodyTitle {
+  font-size: 28px !important;
+}
+.modal .modal-content .recordModalBody #bestRecordDisplay {
+  font-size: 50px !important;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.507);
+  border-radius: 15px;
+  text-align: center;
+}
+.modal .modal-content .resultCloseBtn {
+  width: auto;
+  height: 40px;
+  padding: 0 10px;
+}
+.modal .modal-content .recordCloseBtn {
+  width: 40px;
+  height: 40px;
+  filter: invert(1) brightness(2);
+  padding: 0;
 }
